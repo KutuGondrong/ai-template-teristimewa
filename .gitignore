@@ -1,0 +1,8 @@
+/node_modules/
+/.pnpm-store/
+__pycache__/
+.DS_Store
+.idea/
+.vscode/
+*.swp
+TEST.local.md

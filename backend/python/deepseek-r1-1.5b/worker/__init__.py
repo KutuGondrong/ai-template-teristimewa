@@ -1,0 +1,1 @@
+"""Guest cleanup worker."""

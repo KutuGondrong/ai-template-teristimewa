@@ -1,0 +1,70 @@
+{
+  "app": {
+    "name": "AI Template [nuxt]",
+    "tagline": "Local chat with a model on your machine"
+  },
+  "nav": {
+    "chat": "Chat",
+    "about": "About",
+    "login": "Log in",
+    "signup": "Sign up",
+    "logout": "Log out",
+    "profile": "Profile",
+    "language": "Language",
+    "theme": "Theme"
+  },
+  "auth": {
+    "email": "Email",
+    "password": "Password",
+    "submitLogin": "Log in",
+    "submitSignup": "Sign up",
+    "guestBanner": "You are browsing as a guest. History is cleared daily.",
+    "invalidEmail": "Invalid email",
+    "weakPassword": "Password needs 8+ characters with letters and numbers",
+    "emailTaken": "Email already registered",
+    "wrongCredentials": "Wrong email or password",
+    "signupSuccess": "Account created. Please log in.",
+    "subtitleLogin": "Welcome back. Sign in to keep your chat.",
+    "subtitleSignup": "Create an account to keep history after today.",
+    "haveAccount": "Already have an account?",
+    "noAccount": "No account yet?"
+  },
+  "profile": {
+    "title": "Profile",
+    "email": "Email",
+    "id": "ID"
+  },
+  "chat": {
+    "placeholder": "Write a message\u2026",
+    "send": "Send",
+    "retry": "Retry",
+    "pending": "Waiting for reply\u2026",
+    "thinking": "Thinking\u2026",
+    "slow": "Still working. Local models can take a while.",
+    "empty": "Start a conversation with the local model.",
+    "error": "Send failed or stream dropped. Retry.",
+    "loadMore": "Load earlier"
+  },
+  "about": {
+    "title": "Active model",
+    "vendor": "Vendor",
+    "license": "License",
+    "specs": "Specs",
+    "weight": "Weight",
+    "ram": "Min RAM",
+    "cpu": "Min CPU",
+    "disk": "Min disk",
+    "gpu": "GPU",
+    "makerBody": "This AI template is built by teristimewa.com, with Hedy Simamora as the developer. Frontend, backend, Docker, and a local model are already wired so you can clone it, run it on your machine, and talk to a model without a cloud bill.",
+    "makerStudioCta": "teristimewa.com",
+    "makerDevCta": "Hedy Simamora"
+  },
+  "errors": {
+    "network": "Network error. Check connection or backend.",
+    "unknown": "Something went wrong."
+  },
+  "theme": {
+    "dark": "Dark",
+    "light": "Light"
+  }
+}

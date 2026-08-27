@@ -1,0 +1,15 @@
+node_modules/
+.env
+.env.local
+.env.dev
+.env.prod
+e2e.env
+public/llm.active.json
+llm.active.json
+.next/
+out/
+.eslintcache
+*.log
+.DS_Store
+playwright-report/
+test-results/

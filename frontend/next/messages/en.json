@@ -1,0 +1,50 @@
+{
+  "app": {
+    "name": "AI Template [next]",
+    "tagline": "Local chat with a model on your machine"
+  },
+  "nav": {
+    "chat": "Chat",
+    "about": "About",
+    "login": "Log in",
+    "signup": "Sign up",
+    "logout": "Log out",
+    "language": "Language"
+  },
+  "auth": {
+    "email": "Email",
+    "password": "Password",
+    "submitLogin": "Log in",
+    "submitSignup": "Sign up",
+    "guestBanner": "You are browsing as a guest. History is cleared daily.",
+    "invalidEmail": "Invalid email",
+    "weakPassword": "Password needs 8+ characters with letters and numbers",
+    "emailTaken": "Email already registered",
+    "wrongCredentials": "Wrong email or password",
+    "signupSuccess": "Account created. Please log in."
+  },
+  "chat": {
+    "placeholder": "Write a message…",
+    "send": "Send",
+    "retry": "Retry",
+    "pending": "Waiting for reply…",
+    "empty": "Start a conversation with the local model.",
+    "error": "Send failed or stream dropped. Retry.",
+    "loadMore": "Load earlier"
+  },
+  "about": {
+    "title": "Active model",
+    "vendor": "Vendor",
+    "license": "License",
+    "specs": "Specs",
+    "weight": "Weight",
+    "ram": "Min RAM",
+    "cpu": "Min CPU",
+    "disk": "Min disk",
+    "gpu": "GPU"
+  },
+  "errors": {
+    "network": "Network error. Check connection or backend.",
+    "unknown": "Something went wrong."
+  }
+}

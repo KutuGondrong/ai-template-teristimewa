@@ -1,0 +1,15 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://127.0.0.1:5432/ai_gemma2_2b
+    username: postgres
+    password: postgres
+app:
+  ollama-base-url: http://127.0.0.1:11434
+  ollama-model: gemma2:2b
+  cookie-secure: true
+
+springdoc:
+  swagger-ui:
+    enabled: false
+  api-docs:
+    enabled: false

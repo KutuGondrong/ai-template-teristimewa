@@ -1,0 +1,14 @@
+{
+  "slug": "qwen2.5-0.5b",
+  "name": "Qwen 2.5",
+  "version": "0.5b",
+  "vendor": "Alibaba",
+  "license": "Apache-2.0",
+  "about_en": "Small Qwen 2.5 instruct model for light laptops.",
+  "about_id": "Model Qwen 2.5 kecil untuk laptop ringan.",
+  "weight": "0.5B",
+  "ram_min_gb": 8,
+  "cpu_min_cores": 2,
+  "disk_min_gb": 5,
+  "gpu": "optional"
+}

@@ -1,0 +1,14 @@
+{
+  "slug": "llama3.2-1b",
+  "name": "Llama 3.2",
+  "version": "1b",
+  "vendor": "Meta",
+  "license": "Llama 3.2 Community",
+  "about_en": "Small Llama 3.2 model for local chat.",
+  "about_id": "Model Llama 3.2 kecil untuk chat lokal.",
+  "weight": "1B",
+  "ram_min_gb": 10,
+  "cpu_min_cores": 4,
+  "disk_min_gb": 6,
+  "gpu": "optional"
+}

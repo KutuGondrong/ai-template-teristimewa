@@ -1,0 +1,14 @@
+{
+  "slug": "gemma2-2b",
+  "name": "Gemma 2",
+  "version": "2b",
+  "vendor": "Google",
+  "license": "Gemma Terms",
+  "about_en": "Gemma 2 open weights from Google, not Gemini cloud.",
+  "about_id": "Bobot terbuka Gemma 2 dari Google, bukan Gemini cloud.",
+  "weight": "2B",
+  "ram_min_gb": 16,
+  "cpu_min_cores": 4,
+  "disk_min_gb": 10,
+  "gpu": "optional"
+}

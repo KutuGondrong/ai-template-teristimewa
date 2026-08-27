@@ -1,0 +1,14 @@
+{
+  "slug": "deepseek-r1-1.5b",
+  "name": "DeepSeek R1",
+  "version": "1.5b",
+  "vendor": "DeepSeek",
+  "license": "MIT",
+  "about_en": "Small reasoning model for local chat demos.",
+  "about_id": "Model penalaran kecil untuk demo chat lokal.",
+  "weight": "1.5B",
+  "ram_min_gb": 12,
+  "cpu_min_cores": 4,
+  "disk_min_gb": 8,
+  "gpu": "optional"
+}

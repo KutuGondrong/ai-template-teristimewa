@@ -1,0 +1,50 @@
+{
+  "app": {
+    "name": "AI Template [next]",
+    "tagline": "Chat lokal dengan model di mesin Anda"
+  },
+  "nav": {
+    "chat": "Chat",
+    "about": "Tentang",
+    "login": "Masuk",
+    "signup": "Daftar",
+    "logout": "Keluar",
+    "language": "Bahasa"
+  },
+  "auth": {
+    "email": "Email",
+    "password": "Kata sandi",
+    "submitLogin": "Masuk",
+    "submitSignup": "Daftar",
+    "guestBanner": "Anda sedang sebagai tamu. Riwayat dihapus setiap hari.",
+    "invalidEmail": "Email tidak valid",
+    "weakPassword": "Kata sandi minimal 8 karakter, huruf dan angka",
+    "emailTaken": "Email sudah terdaftar",
+    "wrongCredentials": "Email atau kata sandi salah",
+    "signupSuccess": "Akun dibuat. Silakan masuk."
+  },
+  "chat": {
+    "placeholder": "Tulis pesan…",
+    "send": "Kirim",
+    "retry": "Coba lagi",
+    "pending": "Menunggu balasan…",
+    "empty": "Mulai percakapan dengan model lokal.",
+    "error": "Gagal mengirim atau stream putus. Coba lagi.",
+    "loadMore": "Muat sebelumnya"
+  },
+  "about": {
+    "title": "Model aktif",
+    "vendor": "Vendor",
+    "license": "Lisensi",
+    "specs": "Spesifikasi",
+    "weight": "Bobot",
+    "ram": "RAM minimum",
+    "cpu": "CPU minimum",
+    "disk": "Disk minimum",
+    "gpu": "GPU"
+  },
+  "errors": {
+    "network": "Jaringan bermasalah. Periksa koneksi atau backend.",
+    "unknown": "Terjadi kesalahan."
+  }
+}

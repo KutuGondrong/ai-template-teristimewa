@@ -1,0 +1,70 @@
+{
+  "app": {
+    "name": "AI Template [nuxt]",
+    "tagline": "Chat lokal dengan model di mesin Anda"
+  },
+  "nav": {
+    "chat": "Chat",
+    "about": "Tentang",
+    "login": "Masuk",
+    "signup": "Daftar",
+    "logout": "Keluar",
+    "profile": "Profil",
+    "language": "Bahasa",
+    "theme": "Tema"
+  },
+  "auth": {
+    "email": "Email",
+    "password": "Kata sandi",
+    "submitLogin": "Masuk",
+    "submitSignup": "Daftar",
+    "guestBanner": "Anda sedang sebagai tamu. Riwayat dihapus setiap hari.",
+    "invalidEmail": "Email tidak valid",
+    "weakPassword": "Kata sandi minimal 8 karakter, huruf dan angka",
+    "emailTaken": "Email sudah terdaftar",
+    "wrongCredentials": "Email atau kata sandi salah",
+    "signupSuccess": "Akun dibuat. Silakan masuk.",
+    "subtitleLogin": "Selamat datang kembali. Masuk untuk menyimpan chat.",
+    "subtitleSignup": "Buat akun supaya riwayat tidak hilang setelah hari ini.",
+    "haveAccount": "Sudah punya akun?",
+    "noAccount": "Belum punya akun?"
+  },
+  "profile": {
+    "title": "Profil",
+    "email": "Email",
+    "id": "ID"
+  },
+  "chat": {
+    "placeholder": "Tulis pesan\u2026",
+    "send": "Kirim",
+    "retry": "Coba lagi",
+    "pending": "Menunggu balasan\u2026",
+    "thinking": "Sedang berpikir\u2026",
+    "slow": "Masih diproses. Model lokal bisa butuh waktu.",
+    "empty": "Mulai percakapan dengan model lokal.",
+    "error": "Gagal mengirim atau stream putus. Coba lagi.",
+    "loadMore": "Muat sebelumnya"
+  },
+  "about": {
+    "title": "Model aktif",
+    "vendor": "Vendor",
+    "license": "Lisensi",
+    "specs": "Spesifikasi",
+    "weight": "Bobot",
+    "ram": "RAM minimum",
+    "cpu": "CPU minimum",
+    "disk": "Disk minimum",
+    "gpu": "GPU",
+    "makerBody": "Template AI ini dibangun oleh teristimewa.com, dengan Hedy Simamora sebagai developernya. Frontend, backend, Docker, dan model lokalnya sudah dirakit, supaya kamu bisa clone, jalankan di mesin sendiri, lalu ngobrol dengan model tanpa tagihan cloud.",
+    "makerStudioCta": "teristimewa.com",
+    "makerDevCta": "Hedy Simamora"
+  },
+  "errors": {
+    "network": "Jaringan bermasalah. Periksa koneksi atau backend.",
+    "unknown": "Terjadi kesalahan."
+  },
+  "theme": {
+    "dark": "Gelap",
+    "light": "Terang"
+  }
+}

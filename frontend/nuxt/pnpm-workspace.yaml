@@ -1,0 +1,9 @@
+allowBuilds:
+  esbuild: true
+  "@parcel/watcher": true
+  sharp: true
+  unrs-resolver: true
+  vue-demi: true
+
+minimumReleaseAgeExclude:
+  - axios@1.20.0

@@ -1,0 +1,9 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://127.0.0.1:5432/ai_deepseek_r1_1_5b
+    username: postgres
+    password: postgres
+app:
+  ollama-base-url: http://127.0.0.1:11434
+  ollama-model: deepseek-r1:1.5b
+  cookie-secure: false

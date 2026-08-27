@@ -1,0 +1,9 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://127.0.0.1:5432/ai_llama32_1b
+    username: postgres
+    password: postgres
+app:
+  ollama-base-url: http://127.0.0.1:11434
+  ollama-model: llama3.2:1b
+  cookie-secure: false
