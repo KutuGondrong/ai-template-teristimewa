@@ -514,8 +514,7 @@ verify_backend_cors_for_fe() {
     return 0
   fi
   echo "Backend CORS does not allow ${origin} (got: ${allow:-none})."
-  echo "Restart the backend so it loads default CORS for all frontend dev ports:"
-  echo "  Ctrl+C on make run … no-fe, then start it again."
+  hint_backend_cors "$fe"
   exit 1
 }
 
@@ -1082,6 +1081,166 @@ reap_child_pids() {
 
 compose_cmd() {
   (cd "$ROOT/docker/${LLM_SLUG}" && docker compose "$@")
+}
+
+postgres_db_name() {
+  awk '/POSTGRES_DB:/ { print $2; exit }' "$ROOT/docker/${LLM_SLUG}/compose.yml"
+}
+
+ensure_postgres_database() {
+  local db_name
+  db_name="$(postgres_db_name)"
+  if [ -z "$db_name" ]; then
+    echo "FAILED: Could not read POSTGRES_DB from docker/${LLM_SLUG}/compose.yml"
+    exit 1
+  fi
+  if compose_cmd exec -T postgres psql -U postgres -tc "SELECT 1 FROM pg_database WHERE datname = '${db_name}'" | grep -q 1; then
+    echo "Postgres database $db_name ready"
+    return 0
+  fi
+  echo "Creating postgres database $db_name"
+  if ! compose_cmd exec -T postgres createdb -U postgres "$db_name"; then
+    echo "FAILED: Could not create postgres database $db_name"
+    hint_postgres_port_5432 "$db_name"
+    exit 1
+  fi
+  echo "Postgres database $db_name created"
+}
+
+verify_postgres_host_database() {
+  local db_name ok=0
+  db_name="$(postgres_db_name)"
+  [ -n "$db_name" ] || return 0
+  if command -v psql >/dev/null 2>&1; then
+    PGPASSWORD=postgres psql -h 127.0.0.1 -U postgres -d "$db_name" -tc "SELECT 1" 2>/dev/null | grep -q 1 && ok=1
+  else
+    docker run --rm -e PGPASSWORD=postgres --add-host=host.docker.internal:host-gateway postgres:16.6-alpine \
+      psql -h host.docker.internal -p 5432 -U postgres -d "$db_name" -tc "SELECT 1" 2>/dev/null | grep -q 1 && ok=1
+  fi
+  if [ "$ok" -eq 1 ]; then
+    return 0
+  fi
+  echo "FAILED: Database $db_name is not reachable at 127.0.0.1:5432."
+  hint_postgres_port_5432 "$db_name"
+  exit 1
+}
+
+hint_heading() {
+  echo
+  echo "How to fix:"
+}
+
+hint_postgres_port_5432() {
+  local db_name="${1:-$(postgres_db_name 2>/dev/null || true)}"
+  hint_heading
+  echo "  Port 5432 may be used by another Postgres (not this app's Docker container)."
+  echo "  1. See what listens on 5432:"
+  echo "       lsof -nP -iTCP:5432 -sTCP:LISTEN"
+  echo "  2. Stop other stacks:  make down   (in each other app folder)"
+  echo "  3. Stop local Postgres (Homebrew):  brew services stop postgresql postgresql@16"
+  if [ -n "$db_name" ]; then
+    echo "  4. Create the database in this app's Postgres (if needed):"
+    echo "       docker compose -f docker/${LLM_SLUG}/compose.yml exec -T postgres createdb -U postgres ${db_name}"
+  fi
+  echo "  5. In this folder:  make down && make run"
+  hint_guide_link
+}
+
+hint_postgres_database_missing() {
+  local db_name
+  db_name="$(postgres_db_name 2>/dev/null || echo '<database>')"
+  hint_heading
+  echo "  The backend could not find Postgres database: ${db_name}"
+  echo "  1. Create it in this app's Docker Postgres:"
+  echo "       docker compose -f docker/${LLM_SLUG}/compose.yml exec -T postgres createdb -U postgres ${db_name}"
+  echo "  2. If that fails, port 5432 is probably another Postgres — check:"
+  echo "       lsof -nP -iTCP:5432 -sTCP:LISTEN"
+  echo "  3. Stop other stacks (make down elsewhere), then:  make down && make run"
+  hint_guide_link
+}
+
+hint_docker_unhealthy() {
+  hint_heading
+  echo "  Docker Postgres/Ollama did not become healthy."
+  echo "  1. Check ports:"
+  echo "       lsof -nP -iTCP:5432 -sTCP:LISTEN"
+  echo "       lsof -nP -iTCP:11434 -sTCP:LISTEN"
+  echo "  2. Stop other stacks:  make down   (in other app folders)"
+  echo "  3. Retry:  make down && make run"
+  hint_guide_link
+}
+
+hint_ollama_not_ready() {
+  hint_heading
+  echo "  Ollama is not ready on http://127.0.0.1:11434"
+  echo "  1. Check port:  lsof -nP -iTCP:11434 -sTCP:LISTEN"
+  echo "  2. Restart Docker:  make down && make run"
+  echo "  3. Pull model manually:"
+  echo "       docker compose -f docker/${LLM_SLUG}/compose.yml exec -T ollama ollama pull ${OLLAMA_MODEL:-<model>}"
+  hint_guide_link
+}
+
+hint_port_in_use() {
+  local port="$1"
+  local label="${2:-service}"
+  hint_heading
+  echo "  Port ${port} (${label}) is already in use."
+  echo "  1. See the process:"
+  echo "       lsof -nP -iTCP:${port} -sTCP:LISTEN"
+  echo "  2. Stop it or run:  make down"
+  echo "  3. Retry:  make run"
+  hint_guide_link
+}
+
+hint_backend_cors() {
+  local fe="$1"
+  hint_heading
+  echo "  Backend CORS does not match frontend ${fe}."
+  echo "  1. Stop make run (Ctrl+C)"
+  echo "  2. Start backend again:  make run"
+  echo "  3. If you changed the dev port, add it to backend CORS (see README)."
+  hint_guide_link
+}
+
+hint_guide_link() {
+  echo "  More help:  https://ai.teristimewa.com/"
+}
+
+print_run_stop_hint() {
+  echo "To stop:"
+  echo "  Ctrl+C here  — stops backend + frontend in this terminal only"
+  echo "  make down    — stops Docker (Postgres + Ollama); run in another terminal, same folder"
+  echo
+}
+
+print_run_stop_reminder() {
+  echo
+  echo "Docker (Postgres + Ollama) is still running. Stop it with:  make down"
+  echo
+}
+
+print_backend_failure_hints() {
+  local log="${1:-}"
+  [ -n "$log" ] && [ -f "$log" ] || return 0
+  if grep -qE 'InvalidCatalogNameError|database "[^"]+" does not exist' "$log" 2>/dev/null; then
+    hint_postgres_database_missing
+    return 0
+  fi
+  if grep -qE 'Connection refused|OperationalError|asyncpg|psql:|postgres|5432' "$log" 2>/dev/null; then
+    hint_postgres_port_5432
+    return 0
+  fi
+  if grep -qE 'ollama|11434' "$log" 2>/dev/null; then
+    hint_ollama_not_ready
+    return 0
+  fi
+  if grep -qE 'Address already in use|:8000' "$log" 2>/dev/null; then
+    hint_port_in_use 8000 "backend API"
+    return 0
+  fi
+  hint_heading
+  echo "  Scroll up for the full error above."
+  hint_guide_link
 }
 
 be_dir() {

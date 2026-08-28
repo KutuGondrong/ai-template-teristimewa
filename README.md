@@ -2,18 +2,24 @@
 
 English README. [Bahasa Indonesia](README.id.md)
 
+![AI Teristimewa home page](assets/home-page-ai-template.png)
+
+**User-friendly guide:** Step-by-step documentation at [https://ai.teristimewa.com/](https://ai.teristimewa.com/)
+
 ## What you need first
 
 Install these on your machine **before** you clone this repo.
 
-| Tool | macOS | Windows | Linux |
-|---|---|---|---|
-| Git | `xcode-select --install` or [git-scm](https://git-scm.com) | [Git for Windows](https://git-scm.com) | `sudo apt install git` |
-| **Docker** (required) | [Docker Desktop](https://docs.docker.com/desktop/setup/install/mac-install/) | [Docker Desktop](https://docs.docker.com/desktop/setup/install/windows-install/) | Engine + Compose plugin |
-| Volta + Node 22 + pnpm | `curl https://get.volta.sh \| bash` then `volta install node@22` and `volta install pnpm` | installer from volta.sh, same volta commands | same as macOS |
-| uv + Python 3.12 | `curl -LsSf https://astral.sh/uv/install.sh \| sh` then `uv python install 3.12` | PowerShell installer from [uv](https://docs.astral.sh/uv/) | same as macOS |
-| Make | `xcode-select --install` or `brew install make` | WSL2: `sudo apt install make` | `sudo apt install make` |
-| IntelliJ IDEA + JDK 21 | only for Spring; IntelliJ can download JDK 21 | same | same |
+
+| Tool                   | macOS                                                                                    | Windows                                                                          | Linux                   |
+| ---------------------- | ---------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- | ----------------------- |
+| Git                    | `xcode-select --install` or [git-scm](https://git-scm.com)                               | [Git for Windows](https://git-scm.com)                                           | `sudo apt install git`  |
+| **Docker** (required)  | [Docker Desktop](https://docs.docker.com/desktop/setup/install/mac-install/)             | [Docker Desktop](https://docs.docker.com/desktop/setup/install/windows-install/) | Engine + Compose plugin |
+| Volta + Node 22 + pnpm | `curl https://get.volta.sh | bash` then `volta install node@22` and `volta install pnpm` | installer from volta.sh, same volta commands                                     | same as macOS           |
+| uv + Python 3.12       | `curl -LsSf https://astral.sh/uv/install.sh | sh` then `uv python install 3.12`          | PowerShell installer from [uv](https://docs.astral.sh/uv/)                       | same as macOS           |
+| Make                   | `xcode-select --install` or `brew install make`                                          | WSL2: `sudo apt install make`                                                    | `sudo apt install make` |
+| IntelliJ IDEA + JDK 21 | only for Spring; IntelliJ can download JDK 21                                            | same                                                                             | same                    |
+
 
 Check: `git --version`, `docker --version`, `docker compose version`, `node --version`, `pnpm --version`, `uv --version`, `make --version`.
 
@@ -97,19 +103,21 @@ BE: `python` | `spring`
 
 App name: start with a letter; letters, numbers, hyphen, or underscore (example: `my-ai-chat`).
 
-Open the UI at **http://127.0.0.1:5174** (react), **5173** (vue), or **3000** (nuxt/next). API Swagger is http://127.0.0.1:8000/docs on local/dev. Prod has no Swagger; use http://127.0.0.1:8000/api/health.
+Open the UI at **[http://127.0.0.1:5174](http://127.0.0.1:5174)** (react), **5173** (vue), or **3000** (nuxt/next). API Swagger is [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs) on local/dev. Prod has no Swagger; use [http://127.0.0.1:8000/api/health](http://127.0.0.1:8000/api/health).
 
 ### Dev ports & CORS
 
-Chat and the LLM go through the **backend on port 8000** (Ollama on 11434 in Docker), not through the UI port. Dev servers bind to **127.0.0.1**; the default API URL is **http://127.0.0.1:8000** (so session cookies work).
+Chat and the LLM go through the **backend on port 8000** (Ollama on 11434 in Docker), not through the UI port. Dev servers bind to **127.0.0.1**; the default API URL is **[http://127.0.0.1:8000](http://127.0.0.1:8000)** (so session cookies work).
 
 Default dev ports are already in backend CORS (3000, 5173, 5174 — both `localhost` and `127.0.0.1`). If chat fails after switching frontends, **restart the backend** (`Ctrl+C`, then `make run … no-fe` again). `make run-fe` refuses to start when backend CORS does not match.
 
-| Frontend | Dev URL |
-|---|---|
-| nuxt, next | http://127.0.0.1:3000 |
-| vue | http://127.0.0.1:5173 |
-| react | http://127.0.0.1:5174 |
+
+| Frontend   | Dev URL                                        |
+| ---------- | ---------------------------------------------- |
+| nuxt, next | [http://127.0.0.1:3000](http://127.0.0.1:3000) |
+| vue        | [http://127.0.0.1:5173](http://127.0.0.1:5173) |
+| react      | [http://127.0.0.1:5174](http://127.0.0.1:5174) |
+
 
 If you run the UI on **another port** (e.g. `pnpm dev -- --port 3001`), add that origin to backend **CORS** or the browser will block API calls.
 
@@ -144,20 +152,24 @@ Stop: `make down` in the same folder you started (`make run`). Another cloned ap
 - deepseek-r1-1.5b — ~12 GB
 - gemma2-2b — heavy, ~16 GB
 
+
+
 ## Commands
 
-| Make | Script |
-|---|---|
-| `make install` | `./scripts/install.sh` |
-| `make clone <fe> <slug> <be> <app-name>` | sibling folder; README there is only for that FE + BE + Docker |
-| `make run` | default: local + nuxt + deepseek-r1-1.5b + python |
-| `make run <env> <fe> <slug> <be>` | start that stack in this template (env first) |
-| `make run <env> no-fe <slug> <be>` | docker + backend only |
-| `make run-fe <fe>` | frontend only (`nuxt` \| `next` \| `vue` \| `react`); backend must already be up |
-| `make run local\|dev\|prod` | after clone, in that folder: same stack, chosen env |
-| `make test` / `test-e2e` / `smoke` / `down` | same args as `make run` |
-| `make build` | production builds for all apps |
-| `make lint` / `make format` | ESLint + Ruff + ktlint |
+
+| Make                                        | Script                                                                        |
+| ------------------------------------------- | ----------------------------------------------------------------------------- |
+| `make install`                              | `./scripts/install.sh`                                                        |
+| `make clone <fe> <slug> <be> <app-name>`    | sibling folder; README there is only for that FE + BE + Docker                |
+| `make run`                                  | default: local + nuxt + deepseek-r1-1.5b + python                             |
+| `make run <env> <fe> <slug> <be>`           | start that stack in this template (env first)                                 |
+| `make run <env> no-fe <slug> <be>`          | docker + backend only                                                         |
+| `make run-fe <fe>`                          | frontend only (`nuxt` | `next` | `vue` | `react`); backend must already be up |
+| `make run local|dev|prod`                   | after clone, in that folder: same stack, chosen env                           |
+| `make test` / `test-e2e` / `smoke` / `down` | same args as `make run`                                                       |
+| `make build`                                | production builds for all apps                                                |
+| `make lint` / `make format`                 | ESLint + Ruff + ktlint                                                        |
+
 
 E2E credentials: copy `e2e.env.example` in the frontend app to `e2e.env`.
 
@@ -170,3 +182,4 @@ There is no root `.env`. Each service owns `local` / `dev` / `prod` files (same 
 - Spring: `application.yml` and `application-{local,dev,prod}.yml`
 - Root `.gitignore` only covers root `package.json` leftovers (`/node_modules/`, `/.pnpm-store/`)
 - LLM about page: `frontend/<app>/llm/<slug>.json` (committed). `make clone` / `make run` rewrites only the selected frontend's `public/llm.active.json`
+

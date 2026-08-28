@@ -2,6 +2,10 @@
 
 README Bahasa Indonesia. [English](README.md)
 
+![Halaman utama AI Teristimewa](assets/home-page-ai-template.png)
+
+**Panduan langkah demi langkah:** Dokumentasi yang mudah diikuti di [https://ai.teristimewa.com/](https://ai.teristimewa.com/)
+
 ## Yang perlu dipasang dulu
 
 Pasang ini di mesin **sebelum** clone repo.

@@ -26,6 +26,8 @@ fi
 CHILD_PIDS=()
 BE_PID=""
 FE_PID=""
+BE_LOG="$(mktemp "${TMPDIR:-/tmp}/ai-run-be.XXXXXX")"
+SERVICES_UP=0
 cleanup() {
   trap - EXIT INT TERM
   local started_be=0
@@ -42,6 +44,10 @@ cleanup() {
   if [ "${#CHILD_PIDS[@]}" -gt 0 ]; then
     reap_child_pids "${CHILD_PIDS[@]}"
   fi
+  if [ "${SERVICES_UP:-0}" -eq 1 ]; then
+    print_run_stop_reminder
+  fi
+  rm -f "${BE_LOG:-}"
 }
 trap cleanup EXIT INT TERM
 
@@ -49,14 +55,24 @@ fail() {
   echo
   echo "FAILED: $1"
   echo "Stack: env=$APP_ENV  fe=$FE_APP  llm=$LLM_SLUG  be=$BE_APP"
+  print_backend_failure_hints "${BE_LOG:-}"
   exit 1
 }
 
 if port_in_use 8000; then
-  fail "Port 8000 already in use. Stop the other backend or run make down."
+  echo
+  echo "FAILED: Port 8000 already in use."
+  echo "Stack: env=$APP_ENV  fe=$FE_APP  llm=$LLM_SLUG  be=$BE_APP"
+  hint_port_in_use 8000 "backend API"
+  exit 1
 fi
 if has_frontend && port_in_use "$(fe_dev_port "$FE_APP")"; then
-  fail "Port $(fe_dev_port "$FE_APP") already in use. Stop the other frontend."
+  FE_PORT_CHECK="$(fe_dev_port "$FE_APP")"
+  echo
+  echo "FAILED: Port ${FE_PORT_CHECK} already in use."
+  echo "Stack: env=$APP_ENV  fe=$FE_APP  llm=$LLM_SLUG  be=$BE_APP"
+  hint_port_in_use "$FE_PORT_CHECK" "frontend ($FE_APP)"
+  exit 1
 fi
 
 echo "Starting backend $BE_APP ($LLM_SLUG) env=$APP_ENV"
@@ -64,13 +80,13 @@ if [ "$BE_APP" = "python" ]; then
   (
     cd "$BE_PATH"
     exec env APP_ENV="$APP_ENV" uv run ai-api
-  ) &
+  ) > >(tee "$BE_LOG") 2>&1 &
 else
   require_java21
   (
     cd "$BE_PATH"
     exec env SPRING_PROFILES_ACTIVE="$APP_ENV" ./gradlew bootRun --no-daemon
-  ) &
+  ) > >(tee "$BE_LOG") 2>&1 &
 fi
 BE_PID="$!"
 CHILD_PIDS+=("$BE_PID")
@@ -102,7 +118,8 @@ if ! has_frontend; then
   fi
   echo "Start a frontend in another terminal:"
   echo "  make run-fe nuxt|next|vue|react"
-  echo
+  print_run_stop_hint
+  SERVICES_UP=1
 
   while kill -0 "$BE_PID" 2>/dev/null; do
     sleep 2
@@ -150,7 +167,8 @@ if [ "$APP_ENV" = "prod" ]; then
 else
   echo "API  http://127.0.0.1:8000/docs"
 fi
-echo
+print_run_stop_hint
+SERVICES_UP=1
 
 while kill -0 "$BE_PID" 2>/dev/null && kill -0 "$FE_PID" 2>/dev/null; do
   sleep 2
