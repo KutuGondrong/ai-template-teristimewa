@@ -6,6 +6,10 @@ README Bahasa Indonesia. [English](README.md)
 
 **Panduan langkah demi langkah:** Dokumentasi yang mudah diikuti di [https://ai.teristimewa.com/](https://ai.teristimewa.com/)
 
+**Video tutorial:** Cara setup AI sendiri dari template ini.
+
+<video controls width="100%" src="https://github.com/KutuGondrong/ai-template-teristimewa/releases/download/readme-video/how-to-make-your-own-ai.mp4"></video>
+
 ## Yang perlu dipasang dulu
 
 Pasang ini di mesin **sebelum** clone repo.

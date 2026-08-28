@@ -6,6 +6,10 @@ English README. [Bahasa Indonesia](README.id.md)
 
 **User-friendly guide:** Step-by-step documentation at [https://ai.teristimewa.com/](https://ai.teristimewa.com/)
 
+**Video tutorial:** How to set up your own AI from this template.
+
+<video controls width="100%" src="https://github.com/KutuGondrong/ai-template-teristimewa/releases/download/readme-video/how-to-make-your-own-ai.mp4"></video>
+
 ## What you need first
 
 Install these on your machine **before** you clone this repo.
