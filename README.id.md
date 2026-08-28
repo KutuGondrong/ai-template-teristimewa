@@ -8,7 +8,7 @@ README Bahasa Indonesia. [English](README.md)
 
 **Video tutorial:** Cara setup AI sendiri dari template ini.
 
-<video controls width="100%" src="https://github.com/KutuGondrong/ai-template-teristimewa/releases/download/readme-video/how-to-make-your-own-ai.mp4"></video>
+[![Cara setup AI sendiri dari template ini!](https://img.youtube.com/vi/DQ-GN4LASiU/maxresdefault.jpg)](https://youtu.be/DQ-GN4LASiU "Klik untuk menonton di YouTube")
 
 ## Yang perlu dipasang dulu
 
