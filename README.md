@@ -8,7 +8,7 @@ English README. [Bahasa Indonesia](README.id.md)
 
 **Video tutorial:** How to set up your own AI from this template.
 
-<video controls width="100%" src="https://github.com/KutuGondrong/ai-template-teristimewa/releases/download/readme-video/how-to-make-your-own-ai.mp4"></video>
+[![Build Your Own AI easily using AI Template Teristimewa!](https://img.youtube.com/vi/DQ-GN4LASiU/maxresdefault.jpg)](https://youtu.be/DQ-GN4LASiU "Click to watch on YouTube")
 
 ## What you need first
 
